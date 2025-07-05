@@ -1,0 +1,101 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  padding-top: 100px;
+}
+#countdown {
+  font-size: 2rem;
+  margin-top: 20px;
+}
+/* Default dark mode */
+body {
+  background-color: #111;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button {
+  margin-top: 30px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Light mode */
+body.light-mode {
+  background-color: #f9f9f9;
+  color: #111;
+}
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  #countdown {
+    font-size: 1.2rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+#contact {
+  margin-top: 50px;
+  padding: 20px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#contactForm input,
+#contactForm textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+}
+
+#contactForm button {
+  background-color: #008cba;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#contactForm button:hover {
+  background-color: #005f73;
+}
+
+#formStatus {
+  margin-top: 10px;
+  color: lime;
+  font-weight: bold;
+}
+#gallery {
+  padding: 20px;
+  max-width: 800px;
+  margin: 50px auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid #333;
+}
