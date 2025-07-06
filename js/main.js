@@ -1,39 +1,165 @@
-const targetDate = new Date("2025-07-31T12:00:00").getTime();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Site Launch</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Basic styles for audio controls */
+    .audio-controls {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .audio-controls button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .audio-controls button:hover {
+      background-color: #005f73;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Website Launching Soon</h1>
+    <div id="countdown">Loading...</div>
+    <button id="darkModeBtn">Toggle Dark Mode</button>
+  </div>
 
-const countdown = setInterval(() => {
-  const now = new Date().getTime();
-  const distance = targetDate - now;
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <input type="tel" name="phone" placeholder="Your Phone (optional)" />
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p id="formStatus"></p>
+  </section>
 
-  if (distance < 0) {
-    clearInterval(countdown);
-    document.getElementById("countdown").innerHTML = "🎉 We're Live!";
-    return;
-  }
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      <img src="https://via.placeholder.com/200" alt="Image 1" />
+      <img src="https://via.placeholder.com/200" alt="Image 2" />
+      <img src="https://via.placeholder.com/200" alt="Image 3" />
+      <img src="https://via.placeholder.com/200" alt="Image 4" />
+    </div>
+  </section>
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  <a href="tel:+1234567890" class="phone-link">📞 Call Me</a>
+  <section id="business-card">
+    <h2>My Business Card</h2>
+    <div class="card">
+      <p><strong>Name:</strong> Abdikadir Ibrahim</p>
+      <p><strong>Email:</strong> <a href="mailto:abdikadir512@gmail.com">abdikadir512@gmail.com</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+    </div>
+  </section>
 
-  document.getElementById("countdown").innerHTML =
-    `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
-}, 1000);
-// 🌙 Dark Mode Toggle
-const darkModeBtn = document.getElementById("darkModeBtn");
+  <div class="audio-controls">
+    <audio id="bgMusic" autoplay loop controls>
+      <source id="audioSource" src="assets/music1.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <br />
+    <button onclick="prevSong()">⏮️ Previous</button>
+    <button onclick="nextSong()">⏭️ Next</button>
+  </div>
 
-darkModeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-});
-// 📬 Handle Contact Form (just a fake response for now)
-const form = document.getElementById("contactForm");
-const status = document.getElementById("formStatus");
+  <script>
+    // Countdown Timer
+    const targetDate = new Date("2025-07-31T12:00:00").getTime();
+    const countdownElem = document.getElementById("countdown");
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault(); // Prevent actual reload
+      if (distance < 0) {
+        clearInterval(countdown);
+        countdownElem.innerHTML = "🎉 We're Live!";
+        return;
+      }
 
-  status.textContent = "✅ Message sent! (Just a demo)";
-  form.reset();
-});
-function toggleTheme() {
-document.body.classList.toggle("light-mode");
-}
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElem.innerHTML = `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+    }, 1000);
+
+    // Dark Mode Toggle with saved preference
+    const darkModeBtn = document.getElementById("darkModeBtn");
+
+    function setTheme(theme) {
+      if (theme === "light") {
+        document.body.classList.add("light-mode");
+      } else {
+        document.body.classList.remove("light-mode");
+      }
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+
+    darkModeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      if (document.body.classList.contains("light-mode")) {
+        localStorage.setItem("theme", "light");
+      } else {
+        localStorage.removeItem("theme");
+      }
+    });
+
+    // Contact form demo handler
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("formStatus");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      status.textContent = "✅ Message sent! (Just a demo)";
+      form.reset();
+    });
+
+    // Audio Playlist Controls
+    const playlist = [
+      "assets/music1.mp3",
+      "assets/music2.mp3",
+      "assets/music3.mp3",
+      "assets/music4.mp3",
+      "assets/music5.mp3",
+      "assets/music6.mp3"
+    ];
+    let currentSong = 0;
+    const audio = document.getElementById("bgMusic");
+    const source = document.getElementById("audioSource");
+
+    function loadSong(index) {
+      source.src = playlist[index];
+      audio.load();
+      audio.play();
+    }
+
+    function nextSong() {
+      currentSong = (currentSong + 1) % playlist.length;
+      loadSong(currentSong);
+    }
+
+    function prevSong() {
+      currentSong = (currentSong - 1 + playlist.length) % playlist.length;
+      loadSong(currentSong);
+    }
+  </script>
+</body>
+</html>
+

@@ -2,27 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Site Launch</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Audio controls styling */
+    .audio-controls {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .audio-controls button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .audio-controls button:hover {
+      background-color: #005f73;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>🚀 Website Launching Soon</h1>
     <div id="countdown">Loading...</div>
-
-    <!-- 🌙 Dark mode toggle -->
     <button id="darkModeBtn">Toggle Dark Mode</button>
   </div>
 
-  <!-- 📬 Contact Form -->
   <section id="contact">
     <h2>Contact Me</h2>
-    <form id="contactForm" action="https://formsubmit.co/abdikadir512@gmail.com" method="POST">
-      <!-- Optional hidden fields -->
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="New Message from My Website!">
-      
+    <form id="contactForm">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <input type="tel" name="phone" placeholder="Your Phone (optional)" />
@@ -32,7 +44,6 @@
     <p id="formStatus"></p>
   </section>
 
-  <!-- 🖼️ Image Gallery -->
   <section id="gallery">
     <h2>Gallery</h2>
     <div class="gallery-grid">
@@ -43,7 +54,6 @@
     </div>
   </section>
 
-  <!-- 📇 Business Card -->
   <a href="tel:+1234567890" class="phone-link">📞 Call Me</a>
   <section id="business-card">
     <h2>My Business Card</h2>
@@ -54,14 +64,87 @@
     </div>
   </section>
 
+  <div class="audio-controls">
+    <audio id="bgMusic" autoplay loop controls>
+      <source id="audioSource" src="assets/music1.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <br />
+    <button onclick="prevSong()">⏮️ Previous</button>
+    <button onclick="nextSong()">⏭️ Next</button>
+  </div>
+
   <script src="js/main.js"></script>
+  <script>
+    // Playlist and player controls
+    const playlist = [
+      "assets/music1.mp3",
+      "assets/music2.mp3",
+      "assets/music3.mp3",
+      "assets/music4.mp3",
+      "assets/music5.mp3",
+      "assets/music6.mp3"
+    ];
+    let currentSong = 0;
+    const audio = document.getElementById("bgMusic");
+    const source = document.getElementById("audioSource");
+
+    function loadSong(index) {
+      source.src = playlist[index];
+      audio.load();
+      audio.play();
+    }
+
+    function nextSong() {
+      currentSong = (currentSong + 1) % playlist.length;
+      loadSong(currentSong);
+    }
+
+    function prevSong() {
+      currentSong = (currentSong - 1 + playlist.length) % playlist.length;
+      loadSong(currentSong);
+    }
+
+    // Countdown timer
+    const targetDate = new Date("2025-07-31T12:00:00").getTime();
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById("countdown").textContent = "🎉 We're Live!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").textContent =
+        `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+    }, 1000);
+
+    // Dark mode toggle
+    const darkModeBtn = document.getElementById("darkModeBtn");
+    darkModeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+    });
+
+    // Contact form demo handler
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("formStatus");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      status.textContent = "✅ Message sent! (Just a demo)";
+      form.reset();
+    });
+  </script>
 </body>
 </html>
-<!-- 🎵 Background Music -->
-<audio id="bg-music" controls loop>
-  <source src="assets/music.mp3" type="audio/mpeg" />
-  Your browser does not support the audio element.
-</audio>
+
 
 
 
