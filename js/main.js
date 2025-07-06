@@ -5,27 +5,26 @@ const body = document.body;
 const saved = localStorage.getItem("theme");
 
 const setTheme = (theme) => {
-if (theme === "light") {
-body.classList.add("light-mode");
-btn.textContent = "☀️";
-} else {
-body.classList.remove("light-mode");
-btn.textContent = "🌙";
-}
+  if (theme === "light") {
+    body.classList.add("light-mode");
+    btn.textContent = "☀️";
+  } else {
+    body.classList.remove("light-mode");
+    btn.textContent = "🌙";
+  }
 };
 
-// Auto detect system preference if no saved theme
 if (!saved) {
-const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-setTheme(prefersDark ? "dark" : "light");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  setTheme(prefersDark ? "dark" : "light");
 } else {
-setTheme(saved);
+  setTheme(saved);
 }
 
 btn.addEventListener("click", () => {
-const next = body.classList.contains("light-mode") ? "dark" : "light";
-setTheme(next);
-localStorage.setItem("theme", next);
+  const next = body.classList.contains("light-mode") ? "dark" : "light";
+  setTheme(next);
+  localStorage.setItem("theme", next);
 });
 
 // COUNTDOWN TIMER
@@ -34,36 +33,36 @@ const cd = document.getElementById("countdown");
 const nav = document.getElementById("mainNav");
 
 const interval = setInterval(() => {
-const now = Date.now();
-const dist = target - now;
+  const now = Date.now();
+  const dist = target - now;
 
-if (dist <= 0) {
-clearInterval(interval);
-cd.textContent = "🎉 We're Live!";
-nav.style.display = "block";
-return;
-}
+  if (dist <= 0) {
+    clearInterval(interval);
+    cd.textContent = "🎉 We're Live!";
+    nav.style.display = "block";
+    return;
+  }
 
-const days = Math.floor(dist / (1000 * 60 * 60 * 24));
-const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const mins = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-const secs = Math.floor((dist % (1000 * 60)) / 1000);
+  const days = Math.floor(dist / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((dist % (1000 * 60)) / 1000);
 
-cd.textContent = `${days}d : ${hours}h : ${mins}m : ${secs}s`;
+  cd.textContent = `${days}d : ${hours}h : ${mins}m : ${secs}s`;
 }, 1000);
 
 // FUN FACTS
 const facts = [
-"Honey never spoils. Archaeologists found 3,000-year-old honey still edible.",
-"Bananas are berries, but strawberries are not.",
-"Octopuses have three hearts and blue blood.",
-"Wombat poop is cube-shaped.",
-"There are more stars in the universe than grains of sand on Earth.",
-"Sharks existed before trees.",
-"Some cats are allergic to humans.",
-"The Eiffel Tower grows in summer due to heat.",
-"Jellyfish Turritopsis dohrnii is biologically immortal.",
-"Flamingos are naturally white — their diet turns them pink."
+  "Honey never spoils. Archaeologists found 3,000-year-old honey still edible.",
+  "Bananas are berries, but strawberries are not.",
+  "Octopuses have three hearts and blue blood.",
+  "Wombat poop is cube-shaped.",
+  "There are more stars in the universe than grains of sand on Earth.",
+  "Sharks existed before trees.",
+  "Some cats are allergic to humans.",
+  "The Eiffel Tower grows in summer due to heat.",
+  "Jellyfish Turritopsis dohrnii is biologically immortal.",
+  "Flamingos are naturally white — their diet turns them pink."
 ];
 
 let fIndex = -1;
@@ -76,41 +75,41 @@ const addBtn = document.getElementById("addFunFactBtn");
 const status = document.getElementById("funFactAddStatus");
 
 const showFact = (i) => {
-if (i < 0 || i >= facts.length) return;
-disp.textContent = facts[i];
-fIndex = i;
-if (facts.length > 1) {
-nextBtn.style.display = "inline-block";
-prevBtn.style.display = "inline-block";
-}
+  if (i < 0 || i >= facts.length) return;
+  disp.textContent = facts[i];
+  fIndex = i;
+  if (facts.length > 1) {
+    nextBtn.style.display = "inline-block";
+    prevBtn.style.display = "inline-block";
+  }
 };
 
 randomBtn.addEventListener("click", () => {
-const randomIndex = Math.floor(Math.random() * facts.length);
-showFact(randomIndex);
+  const randomIndex = Math.floor(Math.random() * facts.length);
+  showFact(randomIndex);
 });
 
 nextBtn.addEventListener("click", () => {
-if (fIndex >= 0) showFact((fIndex + 1) % facts.length);
+  if (fIndex >= 0) showFact((fIndex + 1) % facts.length);
 });
 
 prevBtn.addEventListener("click", () => {
-if (fIndex >= 0) showFact((fIndex - 1 + facts.length) % facts.length);
+  if (fIndex >= 0) showFact((fIndex - 1 + facts.length) % facts.length);
 });
 
 addBtn.addEventListener("click", () => {
-const fact = addInput.value.trim();
-if (!fact) {
-status.style.color = "red";
-status.textContent = "❌ Please enter a valid fun fact.";
-return;
-}
-facts.push(fact);
-showFact(facts.length - 1);
-addInput.value = "";
-status.style.color = "lime";
-status.textContent = "✅ Fun fact added!";
-setTimeout(() => (status.textContent = ""), 2000);
+  const fact = addInput.value.trim();
+  if (!fact) {
+    status.style.color = "red";
+    status.textContent = "❌ Please enter a valid fun fact.";
+    return;
+  }
+  facts.push(fact);
+  showFact(facts.length - 1);
+  addInput.value = "";
+  status.style.color = "lime";
+  status.textContent = "✅ Fun fact added!";
+  setTimeout(() => (status.textContent = ""), 2000);
 });
 
 // CONTACT FORM SUBMISSION (formsubmit.co)
@@ -118,45 +117,42 @@ const form = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 
 if (form) {
-form.addEventListener("submit", (e) => {
-e.preventDefault();
-const data = new FormData(form);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
 
-fetch(form.action, {
-method: "POST",
-mode: "cors", // added explicit CORS mode
-body: data,
-headers: {
-Accept: "application/json"
-}
-})
-.then((res) => {
-if (res.ok) {
-formStatus.style.color = "lime";
-formStatus.textContent = "✅ Message sent!";
-form.reset();
-} else {
-return res.json().then((d) => {
-throw new Error(d.error || "❌ Submission failed.");
-});
-}
-})
-.catch((err) => {
-formStatus.style.color = "red";
-formStatus.textContent = err.message;
-});
-// .finally(() => { /* optional cleanup, e.g. enable button */ });
-});
+    fetch(form.action, {
+      method: "POST",
+      mode: "cors",
+      body: data,
+      headers: { Accept: "application/json" }
+    })
+    .then((res) => {
+      if (res.ok) {
+        formStatus.style.color = "lime";
+        formStatus.textContent = "✅ Message sent!";
+        form.reset();
+      } else {
+        return res.json().then((d) => {
+          throw new Error(d.error || "❌ Submission failed.");
+        });
+      }
+    })
+    .catch((err) => {
+      formStatus.style.color = "red";
+      formStatus.textContent = err.message;
+    });
+  });
 }
 
-// AUDIO PLAYER
+// AUDIO PLAYER – ✅ FIXED FILE PATH
 const playlist = [
-"assets/00/music1.mp3",
-"assets/00/music2.mp3",
-"assets/00/music3.mp3",
-"assets/00/music4.mp3",
-"assets/00/music5.mp3",
-"assets/00/music6.mp3"
+  "assets/music1.mp3",
+  "assets/music2.mp3",
+  "assets/music3.mp3",
+  "assets/music4.mp3",
+  "assets/music5.mp3",
+  "assets/music6.mp3"
 ];
 
 let currentTrack = 0;
@@ -167,79 +163,66 @@ const prevTrackBtn = document.getElementById("prevSongBtn");
 const nextTrackBtn = document.getElementById("nextSongBtn");
 
 function loadTrack(index) {
-if (index < 0 || index >= playlist.length) return;
-source.src = playlist[index];
-audio.load();
-audio.play().catch(() => {}); // Avoid uncaught promise if user didn't interact yet
-currentTrack = index;
-nowPlaying.textContent = `🎵 Now Playing: ${playlist[index].split("/").pop()}`;
+  if (index < 0 || index >= playlist.length) return;
+  source.src = playlist[index];
+  audio.load();
+  audio.play().catch(() => {});
+  currentTrack = index;
+  nowPlaying.textContent = `🎵 Now Playing: ${playlist[index].split("/").pop()}`;
 }
 
 prevTrackBtn.addEventListener("click", () => {
-loadTrack((currentTrack - 1 + playlist.length) % playlist.length);
+  loadTrack((currentTrack - 1 + playlist.length) % playlist.length);
 });
 
 nextTrackBtn.addEventListener("click", () => {
-loadTrack((currentTrack + 1) % playlist.length);
+  loadTrack((currentTrack + 1) % playlist.length);
 });
 
-// Autoplay first track after user interaction (required by browsers)
+// Autoplay after user interaction
 const userInteractionHandler = () => {
-loadTrack(currentTrack);
-document.removeEventListener("click", userInteractionHandler);
-document.removeEventListener("keydown", userInteractionHandler);
+  loadTrack(currentTrack);
+  document.removeEventListener("click", userInteractionHandler);
+  document.removeEventListener("keydown", userInteractionHandler);
 };
 
 document.addEventListener("click", userInteractionHandler);
 document.addEventListener("keydown", userInteractionHandler);
 
-// UNSPLASH IMAGE GALLERY (4 images)
+// UNSPLASH IMAGE GALLERY
 const galleryGrid = document.querySelector(".gallery-grid");
 const unsplashAccessKey = "JQsl0EzN3CrhYmST0rmdD7You0PoaIUKWoRln8Mj2YI";
 
 function loadGalleryImages() {
-if (!galleryGrid) return;
+  if (!galleryGrid) return;
 
-// Using Date as seed so images refresh daily
-const seed = new Date().toISOString().slice(0, 10);
+  const seed = new Date().toISOString().slice(0, 10);
 
-fetch(`https://api.unsplash.com/photos/random?count=4&query=nature&client_id=${unsplashAccessKey}&sig=${seed}`)
-.then(res => res.json())
-.then(images => {
-galleryGrid.innerHTML = ""; // clear old images
-images.forEach(img => {
-const image = document.createElement("img");
-image.src = img.urls.small;
-image.alt = img.alt_description || "Nature Image";
-image.loading = "lazy";
-image.style.borderRadius = "8px";
-image.style.maxWidth = "100%";
-image.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-image.style.opacity = 0;
-image.style.transition = "opacity 1s ease";
-galleryGrid.appendChild(image);
-setTimeout(() => {
-image.style.opacity = 1;
-}, 100); // fade in
-});
-})
-.catch(err => {
-galleryGrid.innerHTML = "<p style='color:red;'>Failed to load images 😢</p>";
-console.error("Unsplash error:", err);
-});
+  fetch(`https://api.unsplash.com/photos/random?count=4&query=nature&client_id=${unsplashAccessKey}&sig=${seed}`)
+    .then(res => res.json())
+    .then(images => {
+      galleryGrid.innerHTML = "";
+      images.forEach(img => {
+        const image = document.createElement("img");
+        image.src = img.urls.small;
+        image.alt = img.alt_description || "Nature Image";
+        image.loading = "lazy";
+        image.style.borderRadius = "8px";
+        image.style.maxWidth = "100%";
+        image.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+        image.style.opacity = 0;
+        image.style.transition = "opacity 1s ease";
+        galleryGrid.appendChild(image);
+        setTimeout(() => {
+          image.style.opacity = 1;
+        }, 100);
+      });
+    })
+    .catch(err => {
+      galleryGrid.innerHTML = "<p style='color:red;'>Failed to load images 😢</p>";
+      console.error("Unsplash error:", err);
+    });
 }
 
 loadGalleryImages();
 });
-
-
-
-
-
-
-
-
-
- 
-
-
