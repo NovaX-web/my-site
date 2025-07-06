@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #content {
+      display: none;
+    }
+    #comingSoon {
+      font-size: 1.5em;
+      color: #888;
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>About Us</h1>
+
+  <div id="comingSoon">🚧 This page will be available when the site launches.</div>
+
+  <div id="content">
+    <p>Welcome to our About page! 🎉</p>
+    <p>We are a passionate team dedicated to building something amazing. More information will be revealed after the official launch.</p>
+  </div>
+
+  <script>
+    const launchTime = new Date("2025-07-31T12:00:00").getTime();
+    const now = new Date().getTime();
+
+    if (now >= launchTime) {
+      document.getElementById("comingSoon").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    }
+  </script>
+</body>
+</html>
+

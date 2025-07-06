@@ -1,165 +1,245 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Site Launch</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <style>
-    /* Basic styles for audio controls */
-    .audio-controls {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .audio-controls button {
-      background-color: var(--accent-color);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin: 5px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .audio-controls button:hover {
-      background-color: #005f73;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>🚀 Website Launching Soon</h1>
-    <div id="countdown">Loading...</div>
-    <button id="darkModeBtn">Toggle Dark Mode</button>
-  </div>
+document.addEventListener("DOMContentLoaded", () => {
+// DARK/LIGHT MODE TOGGLE with system theme detection
+const btn = document.getElementById("darkModeBtn");
+const body = document.body;
+const saved = localStorage.getItem("theme");
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form id="contactForm">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <input type="tel" name="phone" placeholder="Your Phone (optional)" />
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <p id="formStatus"></p>
-  </section>
+const setTheme = (theme) => {
+if (theme === "light") {
+body.classList.add("light-mode");
+btn.textContent = "☀️";
+} else {
+body.classList.remove("light-mode");
+btn.textContent = "🌙";
+}
+};
 
-  <section id="gallery">
-    <h2>Gallery</h2>
-    <div class="gallery-grid">
-      <img src="https://via.placeholder.com/200" alt="Image 1" />
-      <img src="https://via.placeholder.com/200" alt="Image 2" />
-      <img src="https://via.placeholder.com/200" alt="Image 3" />
-      <img src="https://via.placeholder.com/200" alt="Image 4" />
-    </div>
-  </section>
+// Auto detect system preference if no saved theme
+if (!saved) {
+const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+setTheme(prefersDark ? "dark" : "light");
+} else {
+setTheme(saved);
+}
 
-  <a href="tel:+1234567890" class="phone-link">📞 Call Me</a>
-  <section id="business-card">
-    <h2>My Business Card</h2>
-    <div class="card">
-      <p><strong>Name:</strong> Abdikadir Ibrahim</p>
-      <p><strong>Email:</strong> <a href="mailto:abdikadir512@gmail.com">abdikadir512@gmail.com</a></p>
-      <p><strong>Phone:</strong> <a href="tel:+1234567890">+1 (234) 567-890</a></p>
-    </div>
-  </section>
+btn.addEventListener("click", () => {
+const next = body.classList.contains("light-mode") ? "dark" : "light";
+setTheme(next);
+localStorage.setItem("theme", next);
+});
 
-  <div class="audio-controls">
-    <audio id="bgMusic" autoplay loop controls>
-      <source id="audioSource" src="assets/music1.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-    <br />
-    <button onclick="prevSong()">⏮️ Previous</button>
-    <button onclick="nextSong()">⏭️ Next</button>
-  </div>
+// COUNTDOWN TIMER
+const target = new Date("2025-07-31T12:00:00").getTime();
+const cd = document.getElementById("countdown");
+const nav = document.getElementById("mainNav");
 
-  <script>
-    // Countdown Timer
-    const targetDate = new Date("2025-07-31T12:00:00").getTime();
-    const countdownElem = document.getElementById("countdown");
-    const countdown = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+const interval = setInterval(() => {
+const now = Date.now();
+const dist = target - now;
 
-      if (distance < 0) {
-        clearInterval(countdown);
-        countdownElem.innerHTML = "🎉 We're Live!";
-        return;
-      }
+if (dist <= 0) {
+clearInterval(interval);
+cd.textContent = "🎉 We're Live!";
+nav.style.display = "block";
+return;
+}
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+const days = Math.floor(dist / (1000 * 60 * 60 * 24));
+const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const mins = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+const secs = Math.floor((dist % (1000 * 60)) / 1000);
 
-      countdownElem.innerHTML = `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
-    }, 1000);
+cd.textContent = `${days}d : ${hours}h : ${mins}m : ${secs}s`;
+}, 1000);
 
-    // Dark Mode Toggle with saved preference
-    const darkModeBtn = document.getElementById("darkModeBtn");
+// FUN FACTS
+const facts = [
+"Honey never spoils. Archaeologists found 3,000-year-old honey still edible.",
+"Bananas are berries, but strawberries are not.",
+"Octopuses have three hearts and blue blood.",
+"Wombat poop is cube-shaped.",
+"There are more stars in the universe than grains of sand on Earth.",
+"Sharks existed before trees.",
+"Some cats are allergic to humans.",
+"The Eiffel Tower grows in summer due to heat.",
+"Jellyfish Turritopsis dohrnii is biologically immortal.",
+"Flamingos are naturally white — their diet turns them pink."
+];
 
-    function setTheme(theme) {
-      if (theme === "light") {
-        document.body.classList.add("light-mode");
-      } else {
-        document.body.classList.remove("light-mode");
-      }
-    }
+let fIndex = -1;
+const disp = document.getElementById("funFactDisplay");
+const randomBtn = document.getElementById("funFactBtn");
+const nextBtn = document.getElementById("nextFactBtn");
+const prevBtn = document.getElementById("prevFactBtn");
+const addInput = document.getElementById("newFunFactInput");
+const addBtn = document.getElementById("addFunFactBtn");
+const status = document.getElementById("funFactAddStatus");
 
-    // Load saved theme
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
+const showFact = (i) => {
+if (i < 0 || i >= facts.length) return;
+disp.textContent = facts[i];
+fIndex = i;
+if (facts.length > 1) {
+nextBtn.style.display = "inline-block";
+prevBtn.style.display = "inline-block";
+}
+};
 
-    darkModeBtn.addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
-      if (document.body.classList.contains("light-mode")) {
-        localStorage.setItem("theme", "light");
-      } else {
-        localStorage.removeItem("theme");
-      }
-    });
+randomBtn.addEventListener("click", () => {
+const randomIndex = Math.floor(Math.random() * facts.length);
+showFact(randomIndex);
+});
 
-    // Contact form demo handler
-    const form = document.getElementById("contactForm");
-    const status = document.getElementById("formStatus");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      status.textContent = "✅ Message sent! (Just a demo)";
-      form.reset();
-    });
+nextBtn.addEventListener("click", () => {
+if (fIndex >= 0) showFact((fIndex + 1) % facts.length);
+});
 
-    // Audio Playlist Controls
-    const playlist = [
-      "assets/music1.mp3",
-      "assets/music2.mp3",
-      "assets/music3.mp3",
-      "assets/music4.mp3",
-      "assets/music5.mp3",
-      "assets/music6.mp3"
-    ];
-    let currentSong = 0;
-    const audio = document.getElementById("bgMusic");
-    const source = document.getElementById("audioSource");
+prevBtn.addEventListener("click", () => {
+if (fIndex >= 0) showFact((fIndex - 1 + facts.length) % facts.length);
+});
 
-    function loadSong(index) {
-      source.src = playlist[index];
-      audio.load();
-      audio.play();
-    }
+addBtn.addEventListener("click", () => {
+const fact = addInput.value.trim();
+if (!fact) {
+status.style.color = "red";
+status.textContent = "❌ Please enter a valid fun fact.";
+return;
+}
+facts.push(fact);
+showFact(facts.length - 1);
+addInput.value = "";
+status.style.color = "lime";
+status.textContent = "✅ Fun fact added!";
+setTimeout(() => (status.textContent = ""), 2000);
+});
 
-    function nextSong() {
-      currentSong = (currentSong + 1) % playlist.length;
-      loadSong(currentSong);
-    }
+// CONTACT FORM SUBMISSION (formsubmit.co)
+const form = document.getElementById("contactForm");
+const formStatus = document.getElementById("formStatus");
 
-    function prevSong() {
-      currentSong = (currentSong - 1 + playlist.length) % playlist.length;
-      loadSong(currentSong);
-    }
-  </script>
-</body>
-</html>
+if (form) {
+form.addEventListener("submit", (e) => {
+e.preventDefault();
+const data = new FormData(form);
+
+fetch(form.action, {
+method: "POST",
+mode: "cors", // added explicit CORS mode
+body: data,
+headers: {
+Accept: "application/json"
+}
+})
+.then((res) => {
+if (res.ok) {
+formStatus.style.color = "lime";
+formStatus.textContent = "✅ Message sent!";
+form.reset();
+} else {
+return res.json().then((d) => {
+throw new Error(d.error || "❌ Submission failed.");
+});
+}
+})
+.catch((err) => {
+formStatus.style.color = "red";
+formStatus.textContent = err.message;
+});
+// .finally(() => { /* optional cleanup, e.g. enable button */ });
+});
+}
+
+// AUDIO PLAYER
+const playlist = [
+"assets/00/music1.mp3",
+"assets/00/music2.mp3",
+"assets/00/music3.mp3",
+"assets/00/music4.mp3",
+"assets/00/music5.mp3",
+"assets/00/music6.mp3"
+];
+
+let currentTrack = 0;
+const audio = document.getElementById("bgMusic");
+const source = document.getElementById("audioSource");
+const nowPlaying = document.getElementById("nowPlaying");
+const prevTrackBtn = document.getElementById("prevSongBtn");
+const nextTrackBtn = document.getElementById("nextSongBtn");
+
+function loadTrack(index) {
+if (index < 0 || index >= playlist.length) return;
+source.src = playlist[index];
+audio.load();
+audio.play().catch(() => {}); // Avoid uncaught promise if user didn't interact yet
+currentTrack = index;
+nowPlaying.textContent = `🎵 Now Playing: ${playlist[index].split("/").pop()}`;
+}
+
+prevTrackBtn.addEventListener("click", () => {
+loadTrack((currentTrack - 1 + playlist.length) % playlist.length);
+});
+
+nextTrackBtn.addEventListener("click", () => {
+loadTrack((currentTrack + 1) % playlist.length);
+});
+
+// Autoplay first track after user interaction (required by browsers)
+const userInteractionHandler = () => {
+loadTrack(currentTrack);
+document.removeEventListener("click", userInteractionHandler);
+document.removeEventListener("keydown", userInteractionHandler);
+};
+
+document.addEventListener("click", userInteractionHandler);
+document.addEventListener("keydown", userInteractionHandler);
+
+// UNSPLASH IMAGE GALLERY (4 images)
+const galleryGrid = document.querySelector(".gallery-grid");
+const unsplashAccessKey = "JQsl0EzN3CrhYmST0rmdD7You0PoaIUKWoRln8Mj2YI";
+
+function loadGalleryImages() {
+if (!galleryGrid) return;
+
+// Using Date as seed so images refresh daily
+const seed = new Date().toISOString().slice(0, 10);
+
+fetch(`https://api.unsplash.com/photos/random?count=4&query=nature&client_id=${unsplashAccessKey}&sig=${seed}`)
+.then(res => res.json())
+.then(images => {
+galleryGrid.innerHTML = ""; // clear old images
+images.forEach(img => {
+const image = document.createElement("img");
+image.src = img.urls.small;
+image.alt = img.alt_description || "Nature Image";
+image.loading = "lazy";
+image.style.borderRadius = "8px";
+image.style.maxWidth = "100%";
+image.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+image.style.opacity = 0;
+image.style.transition = "opacity 1s ease";
+galleryGrid.appendChild(image);
+setTimeout(() => {
+image.style.opacity = 1;
+}, 100); // fade in
+});
+})
+.catch(err => {
+galleryGrid.innerHTML = "<p style='color:red;'>Failed to load images 😢</p>";
+console.error("Unsplash error:", err);
+});
+}
+
+loadGalleryImages();
+});
+
+
+
+
+
+
+
+
+
+ 
+
 

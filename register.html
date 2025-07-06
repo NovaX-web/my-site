@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #content {
+      display: none;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    #comingSoon {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1.5em;
+      color: #999;
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Register</h1>
+
+  <div id="comingSoon">🚧 Registration opens after the launch date.</div>
+
+  <div id="content">
+    <form id="registerForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" required />
+
+      <button type="submit">Register</button>
+    </form>
+    <p style="margin-top: 10px;">(This is a mockup form — no actual registration is processed.)</p>
+  </div>
+
+  <script>
+    const launchTime = new Date("2025-07-31T12:00:00").getTime();
+    const now = new Date().getTime();
+
+    if (now >= launchTime) {
+      document.getElementById("comingSoon").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    }
+  </script>
+</body>
+</html>

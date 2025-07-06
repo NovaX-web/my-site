@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #content {
+      display: none;
+    }
+    #comingSoon {
+      font-size: 1.5em;
+      color: #888;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .blog-post {
+      border-bottom: 1px solid #ccc;
+      padding: 15px 0;
+    }
+    .blog-post h2 {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Blog</h1>
+
+  <div id="comingSoon">🚧 Our blog launches with the site. Stay tuned!</div>
+
+  <div id="content">
+    <div class="blog-post">
+      <h2>First Post Title</h2>
+      <p><em>Posted July 31, 2025</em></p>
+      <p>Welcome to our official blog! Here, you'll find updates, insights, and behind-the-scenes news.</p>
+    </div>
+    <div class="blog-post">
+      <h2>Behind the Scenes: How We Built This</h2>
+      <p><em>Posted August 2, 2025</em></p>
+      <p>Let’s talk about the tech stack, challenges, and our vision for the future...</p>
+    </div>
+  </div>
+
+  <script>
+    const launchTime = new Date("2025-07-31T12:00:00").getTime();
+    const now = new Date().getTime();
+
+    if (now >= launchTime) {
+      document.getElementById("comingSoon").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog - Coming Soon</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      text-align: center;
+      padding: 40px;
+      font-family: Arial, sans-serif;
+    }
+    a, button {
+      cursor: not-allowed;
+      color: gray;
+      text-decoration: none;
+    }
+    a:hover, button:hover {
+      color: rgb(227, 17, 17);
+    }
+  </style>
+</head>
+<body>
+  <h1>🚧 Blog Page Coming Soon!</h1>
+  <p>We’re working hard to bring you amazing content. Stay tuned!</p>
+  <button onclick="comingSoonAlert()">Try to Explore</button>
+
+  <script>
+    function comingSoonAlert() {
+      alert("🚧 This page is coming soon! Stay tuned.");
+    }
+    // Disable all links and buttons to prevent navigation
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        comingSoonAlert();
+      });
+    });
+  </script>
+</body>
+</html>

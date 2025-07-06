@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #content {
+      display: none;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    #comingSoon {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1.5em;
+      color: #999;
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔐 Login</h1>
+
+  <div id="comingSoon">🚧 Login access will be available after site launch.</div>
+
+  <div id="content">
+    <form id="loginForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" required />
+
+      <button type="submit">Login</button>
+    </form>
+    <p style="margin-top: 10px;">(This is a mockup demo form.)</p>
+  </div>
+
+  <script>
+    const launchTime = new Date("2025-07-31T12:00:00").getTime();
+    const now = new Date().getTime();
+
+    if (now >= launchTime) {
+      document.getElementById("comingSoon").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Coming Soon</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      text-align: center;
+      padding: 40px;
+      font-family: Arial, sans-serif;
+    }
+    a, button {
+      cursor: not-allowed;
+      color: gray;
+      text-decoration: none;
+    }
+    a:hover, button:hover {
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚧 Login Page Coming Soon!</h1>
+  <p>We’re building the login system. Please check back later.</p>
+  <button onclick="comingSoonAlert()">Try to Login</button>
+
+  <script>
+    function comingSoonAlert() {
+      alert("🚧 This page is coming soon! Stay tuned.");
+    }
+    // Disable all links and buttons to prevent navigation
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        comingSoonAlert();
+      });
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About - Coming Soon</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      text-align: center;
+      padding: 40px;
+      font-family: Arial, sans-serif;
+    }
+    a, button {
+      cursor: not-allowed;
+      color: gray;
+      text-decoration: none;
+    }
+    a:hover, button:hover {
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚧 About Page Coming Soon!</h1>
+  <p>We’re working hard to build the About page. Stay tuned!</p>
+  <button onclick="comingSoonAlert()">Learn More</button>
+
+  <script>
+    function comingSoonAlert() {
+      alert("🚧 This page is coming soon! Stay tuned.");
+    }
+    // Disable all links and buttons to prevent navigation
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        comingSoonAlert();
+      });
+    });
+  </script>
+</body>
+</html>
