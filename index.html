@@ -6,7 +6,7 @@
   <title>My Site Launch</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* Audio controls styling */
+    /* Basic styles for audio controls */
     .audio-controls {
       text-align: center;
       margin-top: 20px;
@@ -61,6 +61,7 @@
       <p><strong>Name:</strong> Abdikadir Ibrahim</p>
       <p><strong>Email:</strong> <a href="mailto:abdikadir512@gmail.com">abdikadir512@gmail.com</a></p>
       <p><strong>Phone:</strong> <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+      <p><strong>YouTube:</strong> <a href="https://www.youtube.com/@alexzack5206" target="_blank" rel="noopener noreferrer">alexzack5206</a></p>
     </div>
   </section>
 
@@ -72,11 +73,67 @@
     <br />
     <button onclick="prevSong()">⏮️ Previous</button>
     <button onclick="nextSong()">⏭️ Next</button>
+    <p id="nowPlaying" style="margin-top: 10px;">🎵 Now Playing: music1.mp3</p>
   </div>
 
-  <script src="js/main.js"></script>
   <script>
-    // Playlist and player controls
+    // Countdown Timer
+    const targetDate = new Date("2025-07-31T12:00:00").getTime();
+    const countdownElem = document.getElementById("countdown");
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(countdown);
+        countdownElem.textContent = "🎉 We're Live!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElem.textContent = `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+    }, 1000);
+
+    // Dark Mode Toggle with saved preference
+    const darkModeBtn = document.getElementById("darkModeBtn");
+
+    function setTheme(theme) {
+      if (theme === "light") {
+        document.body.classList.add("light-mode");
+      } else {
+        document.body.classList.remove("light-mode");
+      }
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+
+    darkModeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      if (document.body.classList.contains("light-mode")) {
+        localStorage.setItem("theme", "light");
+      } else {
+        localStorage.removeItem("theme");
+      }
+    });
+
+    // Contact form demo handler
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("formStatus");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      status.textContent = "✅ Message sent! (Just a demo)";
+      form.reset();
+    });
+
+    // Audio Playlist Controls
     const playlist = [
       "assets/music1.mp3",
       "assets/music2.mp3",
@@ -88,11 +145,13 @@
     let currentSong = 0;
     const audio = document.getElementById("bgMusic");
     const source = document.getElementById("audioSource");
+    const nowPlaying = document.getElementById("nowPlaying");
 
     function loadSong(index) {
       source.src = playlist[index];
       audio.load();
       audio.play();
+      nowPlaying.textContent = `🎵 Now Playing: ${playlist[index].split('/').pop()}`;
     }
 
     function nextSong() {
@@ -104,43 +163,6 @@
       currentSong = (currentSong - 1 + playlist.length) % playlist.length;
       loadSong(currentSong);
     }
-
-    // Countdown timer
-    const targetDate = new Date("2025-07-31T12:00:00").getTime();
-    const countdown = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        clearInterval(countdown);
-        document.getElementById("countdown").textContent = "🎉 We're Live!";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").textContent =
-        `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
-    }, 1000);
-
-    // Dark mode toggle
-    const darkModeBtn = document.getElementById("darkModeBtn");
-    darkModeBtn.addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
-    });
-
-    // Contact form demo handler
-    const form = document.getElementById("contactForm");
-    const status = document.getElementById("formStatus");
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      status.textContent = "✅ Message sent! (Just a demo)";
-      form.reset();
-    });
   </script>
 </body>
 </html>
