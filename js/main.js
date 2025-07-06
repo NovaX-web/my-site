@@ -34,3 +34,6 @@ form.addEventListener("submit", (e) => {
   status.textContent = "✅ Message sent! (Just a demo)";
   form.reset();
 });
+function toggleTheme() {
+document.body.classList.toggle("light-mode");
+}
