@@ -4,112 +4,176 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My Site Launch</title>
-
-<!-- PWA: Manifest -->
 <link rel="manifest" href="/manifest.json" />
-
-<!-- Icons using custom logo -->
-<link rel="icon" type="image/png" href="https://i.imgur.com/xqeL5Mr.png" />
+<link rel="icon" href="https://i.imgur.com/xqeL5Mr.png" />
 <link rel="apple-touch-icon" href="https://i.imgur.com/xqeL5Mr.png" />
-
-<!-- Theme color for mobile -->
 <meta name="theme-color" content="#121212" />
-
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<!-- Floating Header -->
 <header id="floatingHeader">
 <h1 id="typewriter" aria-live="polite">🚀 Website Launching Soon</h1>
 <button id="darkModeBtn" aria-label="Toggle dark and light theme">🌙</button>
 </header>
 
-<!-- Hidden Navigation -->
-<nav id="mainNav" style="display: none;">
-<button onclick="location.href='about.html'" aria-label="Go to About page">About</button>
-<button onclick="location.href='blog.html'" aria-label="Go to Blog page">Blog</button>
-<button onclick="location.href='products.html'" aria-label="Go to Products page">Products</button>
-<button onclick="location.href='login.html'" aria-label="Go to Login page">Login</button>
+<nav id="mainNav">
+<button onclick="location.href='about.html'">About</button>
+<button onclick="location.href='blog.html'">Blog</button>
+<button onclick="location.href='products.html'">Products</button>
+<button onclick="location.href='login.html'">Login</button>
 </nav>
 
 <main>
-<!-- Countdown -->
-<div id="countdown" aria-live="polite">Loading...</div>
+<div id="countdown">Loading...</div>
 
-<!-- Fun Facts -->
-<section class="fun-facts" aria-label="Fun facts section">
+<section class="fun-facts">
 <h2>Fun Facts</h2>
-<p id="funFactDisplay" aria-live="polite">Click "Random Fact 🎉" to start!</p>
+<p id="funFactDisplay">Click "Random Fact 🎉" to start!</p>
 <div>
-<button id="funFactBtn" aria-label="Show random fun fact">Random Fact 🎉</button>
-<button id="prevFactBtn" style="display:none;" aria-label="Previous fun fact">⬅️ Prev</button>
-<button id="nextFactBtn" style="display:none;" aria-label="Next fun fact">Next ➡️</button>
+<button id="funFactBtn">Random Fact 🎉</button>
+<button id="prevFactBtn" style="display:none;">⬅️ Prev</button>
+<button id="nextFactBtn" style="display:none;">Next ➡️</button>
 </div>
 <div>
-<input type="text" id="newFunFactInput" placeholder="Add a fun fact" aria-label="Input new fun fact" />
-<button id="addFunFactBtn" aria-label="Add new fun fact">Add Fact ➕</button>
-<p id="funFactAddStatus" aria-live="polite"></p>
+<input type="text" id="newFunFactInput" placeholder="Add a fun fact" />
+<button id="addFunFactBtn">Add Fact ➕</button>
+<p id="funFactAddStatus"></p>
 </div>
 </section>
 
-<!-- Contact -->
-<section id="contact" aria-label="Contact form">
+<section id="contact">
 <h2>Contact Me</h2>
 <form id="contactForm" action="https://formsubmit.co/abdikadir512@gmail.com" method="POST">
-<input type="text" name="name" placeholder="Your Name" required aria-required="true" />
-<input type="email" name="email" placeholder="Your Email" required aria-required="true" />
+<input type="text" name="name" placeholder="Your Name" required />
+<input type="email" name="email" placeholder="Your Email" required />
 <input type="tel" name="phone" placeholder="Your Phone (optional)" />
-<textarea name="message" placeholder="Your Message" rows="5" required aria-required="true"></textarea>
+<textarea name="message" placeholder="Your Message" rows="5" required></textarea>
 <input type="hidden" name="_captcha" value="false">
-<button type="submit" aria-label="Send message">Send Message</button>
+<button type="submit">Send Message</button>
 </form>
-<p id="formStatus" aria-live="polite"></p>
+<p id="formStatus"></p>
 </section>
 
-<!-- Gallery -->
-<section id="gallery" aria-label="Image gallery">
+<section id="gallery">
 <h2>Gallery</h2>
 <div class="gallery-grid"></div>
 </section>
 
-<!-- Business Card -->
-<section id="business-card" aria-label="Business card information">
+<section id="business-card">
 <h2>My Business Card</h2>
 <div class="card">
 <p><strong>Name:</strong> Abdikadir Ibrahim</p>
 <p><strong>Email:</strong> <a href="mailto:abdikadir512@gmail.com">abdikadir512@gmail.com</a></p>
 <p><strong>Phone:</strong> <a href="tel:+1234567890">+1 (234) 567-890</a></p>
-<p><strong>YouTube:</strong> <a href="https://www.youtube.com/@alexzack5206" target="_blank" rel="noopener noreferrer">alexzack5206</a></p>
-<p><strong>Discord:</strong> <a href="https://discord.gg/GhHkVDpQ" target="_blank" rel="noopener noreferrer">Join My Discord</a></p>
-<p><strong>Roblox:</strong> <a href="https://www.roblox.com/users/2883000646/profile" target="_blank" rel="noopener noreferrer">nffan21jrlol</a></p>
+<p><strong>YouTube:</strong> <a href="https://www.youtube.com/@alexzack5206" target="_blank">alexzack5206</a></p>
+<p><strong>Discord:</strong> <a href="https://discord.gg/GhHkVDpQ" target="_blank">Join My Discord</a></p>
+<p><strong>Roblox:</strong> <a href="https://www.roblox.com/users/2883000646/profile" target="_blank">nffan21jrlol</a></p>
 </div>
 </section>
 
-<!-- Audio Player -->
-<section class="audio-controls" aria-label="Audio player controls">
+<section class="audio-controls">
 <audio id="bgMusic" loop controls preload="metadata">
 <source id="audioSource" src="assets/00/music1.mp3" type="audio/mpeg" />
 Your browser does not support the audio element.
 </audio>
 <div>
-<button id="prevSongBtn" aria-label="Previous song">⏮️ Previous</button>
-<button id="nextSongBtn" aria-label="Next song">⏭️ Next</button>
+<button id="prevSongBtn">⏮️ Previous</button>
+<button id="nextSongBtn">⏭️ Next</button>
 </div>
-<p id="nowPlaying" aria-live="polite">🎵 Now Playing: music1.mp3</p>
+<p id="nowPlaying">🎵 Now Playing: music1.mp3</p>
 </section>
 </main>
 
-<!-- Sticky Footer -->
 <footer id="stickyFooter">
 <p>© 2025 Abdikadir Ibrahim. All rights reserved.</p>
 </footer>
 
-<!-- JS -->
-<script src="js/main.js"></script>
+<!-- Floating Donation Button -->
+<div id="donationButton" title="Support me 💖">💸</div>
 
-<!-- PWA Service Worker Registration -->
+<!-- Donation Modal -->
+<div id="donationModal" class="hidden">
+<div class="donation-content">
+<h3>Support My Work 💖</h3>
+
+<!-- Cash App -->
+<section class="payment-method" style="margin-bottom: 20px;">
+<strong>💵 Cash App:</strong><br>
+<label><input type="radio" name="cashAppOption" value="link" checked> Link</label>
+<label><input type="radio" name="cashAppOption" value="qr"> QR Code</label>
+<div id="cashAppLink" style="margin-top: 10px;">
+<a href="https://cash.app/$leosound41" target="_blank">Buy via Cash App</a>
+</div>
+<div id="cashAppQR" style="display:none; margin-top:10px;"></div>
+</section>
+
+<!-- PayPal -->
+<section class="payment-method" style="margin-bottom: 20px;">
+<strong>💳 PayPal:</strong><br>
+<label><input type="radio" name="paypalOption" value="link" checked> Link</label>
+<label><input type="radio" name="paypalOption" value="qr"> QR Code</label>
+<div id="paypalLink" style="margin-top: 10px;">
+<a href="https://www.paypal.com/donate/?business=A5ZHTX338TPVG&no_recurring=0&currency_code=USD" target="_blank">Buy via PayPal</a>
+</div>
+<div id="paypalQR" style="display:none; margin-top:10px;"></div>
+</section>
+
+<!-- Ko-fi -->
+<section class="payment-method" style="margin-bottom: 20px;">
+<strong>☕ Ko-fi:</strong><br>
+<label><input type="radio" name="kofiOption" value="link" checked> Link</label>
+<label><input type="radio" name="kofiOption" value="qr"> QR Code</label>
+<div id="kofiLink" style="margin-top: 10px;">
+<a href="https://coff.ee/abdikadir5j" target="_blank">Buy via Ko-fi</a>
+</div>
+<div id="kofiQR" style="display:none; margin-top:10px;"></div>
+</section>
+
+<!-- Stripe -->
+<section class="payment-method" style="margin-bottom: 20px;">
+<strong>💠 Stripe:</strong><br>
+<label><input type="radio" name="stripeOption" value="link" checked> Link</label>
+<label><input type="radio" name="stripeOption" value="qr"> QR Code</label>
+<div id="stripeLink" style="margin-top: 10px;">
+<a href="https://buy.stripe.com/28E00kgp2f9i40e2Oh2VG00" target="_blank">Buy via Stripe</a>
+</div>
+<div id="stripeQR" style="display:none; margin-top:10px;"></div>
+</section>
+
+<button id="closeDonationModal">Close</button>
+</div>
+</div>
+
+<script src="js/main.js"></script>
 <script>
+// Dark/light mode toggle
+document.getElementById("darkModeBtn").addEventListener("click", () => {
+document.body.classList.toggle("light-mode");
+});
+
+// Donation modal logic
+const modal = document.getElementById("donationModal");
+document.getElementById("donationButton").addEventListener("click", () => {
+modal.classList.remove("hidden");
+});
+document.getElementById("closeDonationModal").addEventListener("click", () => {
+modal.classList.add("hidden");
+});
+window.addEventListener("click", (e) => {
+if (e.target === modal) modal.classList.add("hidden");
+});
+
+// Stripe toggle between Link and QR
+document.querySelectorAll('input[name="stripeOption"]').forEach(option => {
+option.addEventListener('change', () => {
+const selected = document.querySelector('input[name="stripeOption"]:checked').value;
+document.getElementById("stripeLink").style.display = selected === "link" ? "block" : "none";
+document.getElementById("stripeQR").style.display = selected === "qr" ? "block" : "none";
+});
+});
+
+// Optional: register service worker
 if ("serviceWorker" in navigator) {
 window.addEventListener("load", () => {
 navigator.serviceWorker

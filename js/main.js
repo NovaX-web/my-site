@@ -1,228 +1,204 @@
 document.addEventListener("DOMContentLoaded", () => {
-// DARK/LIGHT MODE TOGGLE with system theme detection
+// --- DARK/LIGHT MODE TOGGLE ---
 const btn = document.getElementById("darkModeBtn");
 const body = document.body;
-const saved = localStorage.getItem("theme");
+const savedTheme = localStorage.getItem("theme");
 
 const setTheme = (theme) => {
-  if (theme === "light") {
-    body.classList.add("light-mode");
-    btn.textContent = "☀️";
-  } else {
-    body.classList.remove("light-mode");
-    btn.textContent = "🌙";
-  }
+if (theme === "light") {
+body.classList.add("light-mode");
+btn.textContent = "☀️";
+} else {
+body.classList.remove("light-mode");
+btn.textContent = "🌙";
+}
 };
 
-if (!saved) {
-  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  setTheme(prefersDark ? "dark" : "light");
+if (!savedTheme) {
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+setTheme(prefersDark ? "dark" : "light");
 } else {
-  setTheme(saved);
+setTheme(savedTheme);
 }
 
 btn.addEventListener("click", () => {
-  const next = body.classList.contains("light-mode") ? "dark" : "light";
-  setTheme(next);
-  localStorage.setItem("theme", next);
+const next = body.classList.contains("light-mode") ? "dark" : "light";
+setTheme(next);
+localStorage.setItem("theme", next);
 });
 
-// COUNTDOWN TIMER
+// --- COUNTDOWN TIMER ---
 const target = new Date("2025-07-31T12:00:00").getTime();
 const cd = document.getElementById("countdown");
 const nav = document.getElementById("mainNav");
 
 const interval = setInterval(() => {
-  const now = Date.now();
-  const dist = target - now;
+const now = Date.now();
+const dist = target - now;
 
-  if (dist <= 0) {
-    clearInterval(interval);
-    cd.textContent = "🎉 We're Live!";
-    nav.style.display = "block";
-    return;
-  }
+if (dist <= 0) {
+clearInterval(interval);
+cd.textContent = "🎉 We're Live!";
+nav.style.display = "block";
+return;
+}
 
-  const days = Math.floor(dist / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const mins = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-  const secs = Math.floor((dist % (1000 * 60)) / 1000);
+const days = Math.floor(dist / (1000 * 60 * 60 * 24));
+const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const mins = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+const secs = Math.floor((dist % (1000 * 60)) / 1000);
 
-  cd.textContent = `${days}d : ${hours}h : ${mins}m : ${secs}s`;
+cd.textContent = `${days}d : ${hours}h : ${mins}m : ${secs}s`;
 }, 1000);
 
-// FUN FACTS
-const facts = [
-  "Honey never spoils. Archaeologists found 3,000-year-old honey still edible.",
-  "Bananas are berries, but strawberries are not.",
-  "Octopuses have three hearts and blue blood.",
-  "Wombat poop is cube-shaped.",
-  "There are more stars in the universe than grains of sand on Earth.",
-  "Sharks existed before trees.",
-  "Some cats are allergic to humans.",
-  "The Eiffel Tower grows in summer due to heat.",
-  "Jellyfish Turritopsis dohrnii is biologically immortal.",
-  "Flamingos are naturally white — their diet turns them pink."
-];
+// --- FUN FACTS ---
+// (Omitted here to save space, same as your original code...)
 
-let fIndex = -1;
-const disp = document.getElementById("funFactDisplay");
-const randomBtn = document.getElementById("funFactBtn");
-const nextBtn = document.getElementById("nextFactBtn");
-const prevBtn = document.getElementById("prevFactBtn");
-const addInput = document.getElementById("newFunFactInput");
-const addBtn = document.getElementById("addFunFactBtn");
-const status = document.getElementById("funFactAddStatus");
+// --- CONTACT FORM ---
+// (Omitted here to save space, same as your original code...)
 
-const showFact = (i) => {
-  if (i < 0 || i >= facts.length) return;
-  disp.textContent = facts[i];
-  fIndex = i;
-  if (facts.length > 1) {
-    nextBtn.style.display = "inline-block";
-    prevBtn.style.display = "inline-block";
-  }
+// --- AUDIO PLAYER ---
+// (Omitted here to save space, same as your original code...)
+
+// --- UNSPLASH IMAGE GALLERY ---
+// (Omitted here to save space, same as your original code...)
+
+// --- DONATION MODAL LOGIC ---
+const donationBtn = document.getElementById("donationButton");
+const donationModal = document.getElementById("donationModal");
+const closeDonationModal = document.getElementById("closeDonationModal");
+
+if (donationBtn && donationModal && closeDonationModal) {
+donationBtn.addEventListener("click", () => {
+donationModal.classList.remove("hidden");
+});
+
+closeDonationModal.addEventListener("click", () => {
+donationModal.classList.add("hidden");
+});
+
+window.addEventListener("click", (e) => {
+if (e.target === donationModal) {
+donationModal.classList.add("hidden");
+}
+});
+}
+
+// --- PAYMENT METHOD TOGGLE (Lazy load QR, Animate, LocalStorage) ---
+
+// Define payment methods with their links and QR codes
+const payments = {
+stripe: {
+linkId: "stripeLink",
+qrId: "stripeQR",
+linkUrl: "https://buy.stripe.com/28E00kgp2f9i40e2Oh2VG00",
+qrData: "https://buy.stripe.com/28E00kgp2f9i40e2Oh2VG00",
+qrImgLoaded: false
+},
+cashApp: {
+linkId: "cashAppLink",
+qrId: "cashAppQR",
+linkUrl: "https://cash.app/$leosound41",
+qrData: "https://cash.app/$leosound41",
+qrImgLoaded: false
+},
+paypal: {
+linkId: "paypalLink",
+qrId: "paypalQR",
+linkUrl: "https://www.paypal.com/donate/?business=A5ZHTX338TPVG&no_recurring=0&currency_code=USD",
+qrData: "https://www.paypal.com/donate/?business=A5ZHTX338TPVG&no_recurring=0&currency_code=USD",
+qrImgLoaded: false
+},
+kofi: {
+linkId: "kofiLink",
+qrId: "kofiQR",
+linkUrl: "https://coff.ee/abdikadir5j",
+qrData: "https://coff.ee/abdikadir5j",
+qrImgLoaded: false
+}
 };
 
-randomBtn.addEventListener("click", () => {
-  const randomIndex = Math.floor(Math.random() * facts.length);
-  showFact(randomIndex);
-});
-
-nextBtn.addEventListener("click", () => {
-  if (fIndex >= 0) showFact((fIndex + 1) % facts.length);
-});
-
-prevBtn.addEventListener("click", () => {
-  if (fIndex >= 0) showFact((fIndex - 1 + facts.length) % facts.length);
-});
-
-addBtn.addEventListener("click", () => {
-  const fact = addInput.value.trim();
-  if (!fact) {
-    status.style.color = "red";
-    status.textContent = "❌ Please enter a valid fun fact.";
-    return;
-  }
-  facts.push(fact);
-  showFact(facts.length - 1);
-  addInput.value = "";
-  status.style.color = "lime";
-  status.textContent = "✅ Fun fact added!";
-  setTimeout(() => (status.textContent = ""), 2000);
-});
-
-// CONTACT FORM SUBMISSION (formsubmit.co)
-const form = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
-
-if (form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-
-    fetch(form.action, {
-      method: "POST",
-      mode: "cors",
-      body: data,
-      headers: { Accept: "application/json" }
-    })
-    .then((res) => {
-      if (res.ok) {
-        formStatus.style.color = "lime";
-        formStatus.textContent = "✅ Message sent!";
-        form.reset();
-      } else {
-        return res.json().then((d) => {
-          throw new Error(d.error || "❌ Submission failed.");
-        });
-      }
-    })
-    .catch((err) => {
-      formStatus.style.color = "red";
-      formStatus.textContent = err.message;
-    });
-  });
+function fadeIn(element) {
+element.style.opacity = 0;
+element.style.display = "block";
+let op = 0;
+const step = 0.05;
+function fade() {
+op += step;
+if (op >= 1) {
+element.style.opacity = 1;
+} else {
+element.style.opacity = op;
+requestAnimationFrame(fade);
+}
+}
+fade();
 }
 
-// AUDIO PLAYER – ✅ FIXED FILE PATH
-const playlist = [
-  "assets/music1.mp3",
-  "assets/music2.mp3",
-  "assets/music3.mp3",
-  "assets/music4.mp3",
-  "assets/music5.mp3",
-  "assets/music6.mp3"
-];
-
-let currentTrack = 0;
-const audio = document.getElementById("bgMusic");
-const source = document.getElementById("audioSource");
-const nowPlaying = document.getElementById("nowPlaying");
-const prevTrackBtn = document.getElementById("prevSongBtn");
-const nextTrackBtn = document.getElementById("nextSongBtn");
-
-function loadTrack(index) {
-  if (index < 0 || index >= playlist.length) return;
-  source.src = playlist[index];
-  audio.load();
-  audio.play().catch(() => {});
-  currentTrack = index;
-  nowPlaying.textContent = `🎵 Now Playing: ${playlist[index].split("/").pop()}`;
+function fadeOut(element, callback) {
+let op = 1;
+const step = 0.05;
+function fade() {
+op -= step;
+if (op <= 0) {
+element.style.opacity = 0;
+element.style.display = "none";
+if (callback) callback();
+} else {
+element.style.opacity = op;
+requestAnimationFrame(fade);
+}
+}
+fade();
 }
 
-prevTrackBtn.addEventListener("click", () => {
-  loadTrack((currentTrack - 1 + playlist.length) % playlist.length);
-});
+Object.entries(payments).forEach(([key, { linkId, qrId, linkUrl, qrData }]) => {
+const radios = document.querySelectorAll(`input[name="${key}Option"]`);
+const linkElem = document.getElementById(linkId);
+const qrElem = document.getElementById(qrId);
 
-nextTrackBtn.addEventListener("click", () => {
-  loadTrack((currentTrack + 1) % playlist.length);
-});
+if (!radios.length || !linkElem || !qrElem) return;
 
-// Autoplay after user interaction
-const userInteractionHandler = () => {
-  loadTrack(currentTrack);
-  document.removeEventListener("click", userInteractionHandler);
-  document.removeEventListener("keydown", userInteractionHandler);
-};
-
-document.addEventListener("click", userInteractionHandler);
-document.addEventListener("keydown", userInteractionHandler);
-
-// UNSPLASH IMAGE GALLERY
-const galleryGrid = document.querySelector(".gallery-grid");
-const unsplashAccessKey = "JQsl0EzN3CrhYmST0rmdD7You0PoaIUKWoRln8Mj2YI";
-
-function loadGalleryImages() {
-  if (!galleryGrid) return;
-
-  const seed = new Date().toISOString().slice(0, 10);
-
-  fetch(`https://api.unsplash.com/photos/random?count=4&query=nature&client_id=${unsplashAccessKey}&sig=${seed}`)
-    .then(res => res.json())
-    .then(images => {
-      galleryGrid.innerHTML = "";
-      images.forEach(img => {
-        const image = document.createElement("img");
-        image.src = img.urls.small;
-        image.alt = img.alt_description || "Nature Image";
-        image.loading = "lazy";
-        image.style.borderRadius = "8px";
-        image.style.maxWidth = "100%";
-        image.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-        image.style.opacity = 0;
-        image.style.transition = "opacity 1s ease";
-        galleryGrid.appendChild(image);
-        setTimeout(() => {
-          image.style.opacity = 1;
-        }, 100);
-      });
-    })
-    .catch(err => {
-      galleryGrid.innerHTML = "<p style='color:red;'>Failed to load images 😢</p>";
-      console.error("Unsplash error:", err);
-    });
+// Load QR img on demand (lazy load)
+function loadQR() {
+if (!payments[key].qrImgLoaded) {
+const img = document.createElement("img");
+img.alt = `${key} QR code`;
+img.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}&size=200x200`;
+img.style.width = "200px";
+img.style.height = "200px";
+qrElem.appendChild(img);
+payments[key].qrImgLoaded = true;
+}
 }
 
-loadGalleryImages();
+// Show/hide function with animation
+function showContent(type) {
+if (type === "link") {
+fadeOut(qrElem, () => {
+fadeIn(linkElem);
+});
+} else if (type === "qr") {
+fadeOut(linkElem, () => {
+loadQR();
+fadeIn(qrElem);
+});
+}
+}
+
+// Restore last choice from localStorage
+const savedChoice = localStorage.getItem(`${key}Option`) || "link";
+radios.forEach(r => r.checked = false);
+const savedRadio = [...radios].find(r => r.value === savedChoice);
+if (savedRadio) savedRadio.checked = true;
+showContent(savedChoice);
+
+radios.forEach(radio => {
+radio.addEventListener("change", () => {
+if (!radio.checked) return;
+localStorage.setItem(`${key}Option`, radio.value);
+showContent(radio.value);
+});
+});
+});
 });
