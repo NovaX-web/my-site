@@ -59,7 +59,7 @@ animation: none;
 <input type="email" name="email" placeholder="Your Email" required />
 <input type="tel" name="phone" placeholder="Your Phone (optional)" />
 <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_captcha" value="false" />
 <button type="submit">Send Message</button>
 </form>
 <p id="formStatus"></p>
@@ -107,7 +107,7 @@ Your browser does not support the audio element.
 <div class="donation-content">
 <h3>Support My Work 💖</h3>
 
-<!-- Generic template for each payment platform -->
+<!-- Cash App -->
 <section class="payment-method" data-platform="cashApp">
 <strong>💵 Cash App:</strong><br>
 <label><input type="radio" name="cashAppOption" value="link" checked> Link</label>
@@ -116,6 +116,7 @@ Your browser does not support the audio element.
 <div id="cashAppQR" style="display:none;"></div>
 </section>
 
+<!-- PayPal -->
 <section class="payment-method" data-platform="paypal">
 <strong>💳 PayPal:</strong><br>
 <label><input type="radio" name="paypalOption" value="link" checked> Link</label>
@@ -124,6 +125,7 @@ Your browser does not support the audio element.
 <div id="paypalQR" style="display:none;"></div>
 </section>
 
+<!-- Ko-fi -->
 <section class="payment-method" data-platform="kofi">
 <strong>☕ Ko-fi:</strong><br>
 <label><input type="radio" name="kofiOption" value="link" checked> Link</label>
@@ -132,6 +134,7 @@ Your browser does not support the audio element.
 <div id="kofiQR" style="display:none;"></div>
 </section>
 
+<!-- Stripe -->
 <section class="payment-method" data-platform="stripe">
 <strong>💠 Stripe:</strong><br>
 <label><input type="radio" name="stripeOption" value="link" checked> Link</label>

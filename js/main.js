@@ -208,11 +208,6 @@ const image = document.createElement("img");
 image.src = img.urls.small;
 image.alt = img.alt_description || "Nature Image";
 image.loading = "lazy";
-image.style.borderRadius = "8px";
-image.style.maxWidth = "100%";
-image.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-image.style.opacity = 0;
-image.style.transition = "opacity 1s ease";
 galleryGrid.appendChild(image);
 setTimeout(() => (image.style.opacity = 1), 100);
 });
@@ -225,7 +220,7 @@ console.error("Unsplash error:", err);
 
 loadGalleryImages();
 
-// === DONATION MODAL STRIPE LINK/QR LOGIC ===
+// === DONATION MODAL LOGIC ===
 const donationBtn = document.getElementById("donationButton");
 const donationModal = document.getElementById("donationModal");
 const closeDonationModal = document.getElementById("closeDonationModal");
@@ -233,12 +228,6 @@ const closeDonationModal = document.getElementById("closeDonationModal");
 if (donationBtn && donationModal && closeDonationModal) {
 donationBtn.addEventListener("click", () => {
 donationModal.classList.remove("hidden");
-
-// Restore previous choice
-const savedOption = localStorage.getItem("stripeOption") || "link";
-const inputToCheck = document.querySelector(`input[name="stripeOption"][value="${savedOption}"]`);
-if (inputToCheck) inputToCheck.checked = true;
-toggleStripeOption(savedOption);
 });
 
 closeDonationModal.addEventListener("click", () => {
@@ -252,28 +241,53 @@ donationModal.classList.add("hidden");
 });
 }
 
-// STRIPE OPTION TOGGLE
-function toggleStripeOption(selected) {
-const linkDiv = document.getElementById("stripeLink");
-const qrDiv = document.getElementById("stripeQR");
+// === QR Code Helper ===
+function generateQR(id, url) {
+const container = document.getElementById(id);
+if (container && !container.querySelector("img")) {
+const img = document.createElement("img");
+img.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=200x200`;
+img.alt = "QR Code";
+container.appendChild(img);
+}
+}
+
+function togglePaymentOption(platform, selected, url) {
+const linkDiv = document.getElementById(`${platform}Link`);
+const qrDiv = document.getElementById(`${platform}QR`);
 if (!linkDiv || !qrDiv) return;
 
-if (selected === "qr" && !qrDiv.querySelector("img")) {
-const img = document.createElement("img");
-img.src = "https://api.qrserver.com/v1/create-qr-code/?data=https://buy.stripe.com/28E00kgp2f9i40e2Oh2VG00&size=200x200";
-img.alt = "Stripe QR";
-qrDiv.appendChild(img);
+if (selected === "qr") {
+generateQR(`${platform}QR`, url);
 }
 
 linkDiv.style.display = selected === "link" ? "block" : "none";
 qrDiv.style.display = selected === "qr" ? "block" : "none";
-localStorage.setItem("stripeOption", selected);
+localStorage.setItem(`${platform}Option`, selected);
 }
 
-document.querySelectorAll('input[name="stripeOption"]').forEach((option) => {
-option.addEventListener("change", () => {
-const selected = option.value;
-toggleStripeOption(selected);
+const paymentOptions = {
+cashApp: "https://cash.app/$leosound41",
+paypal: "https://www.paypal.com/donate/?business=A5ZHTX338TPVG&no_recurring=0&currency_code=USD",
+kofi: "https://coff.ee/abdikadir5j",
+stripe: "https://buy.stripe.com/28E00kgp2f9i40e2Oh2VG00"
+};
+
+Object.entries(paymentOptions).forEach(([platform, url]) => {
+const options = document.querySelectorAll(`input[name="${platform}Option"]`);
+const saved = localStorage.getItem(`${platform}Option`) || "link";
+
+const inputToCheck = document.querySelector(`input[name="${platform}Option"][value="${saved}"]`);
+if (inputToCheck) inputToCheck.checked = true;
+togglePaymentOption(platform, saved, url);
+
+options.forEach((opt) => {
+opt.addEventListener("change", () => {
+togglePaymentOption(platform, opt.value, url);
 });
 });
+});
+
+// For fallback detection
+window.loadedMainJS = true;
 });
