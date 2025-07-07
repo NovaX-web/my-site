@@ -9,6 +9,16 @@
 <link rel="apple-touch-icon" href="https://i.imgur.com/xqeL5Mr.png" />
 <meta name="theme-color" content="#121212" />
 <link rel="stylesheet" href="css/style.css" />
+<style>
+#typewriter::after {
+content: "";
+display: inline-block;
+width: 0.4em;
+height: 1em;
+background: transparent;
+animation: none;
+}
+</style>
 </head>
 <body>
 
@@ -17,7 +27,7 @@
 <button id="darkModeBtn" aria-label="Toggle dark and light theme">🌙</button>
 </header>
 
-<nav id="mainNav">
+<nav id="mainNav" style="display: none;">
 <button onclick="location.href='about.html'">About</button>
 <button onclick="location.href='blog.html'">Blog</button>
 <button onclick="location.href='products.html'">Products</button>
@@ -74,7 +84,7 @@
 
 <section class="audio-controls">
 <audio id="bgMusic" loop controls preload="metadata">
-<source id="audioSource" src="assets/00/music1.mp3" type="audio/mpeg" />
+<source id="audioSource" src="assets/music1.mp3" type="audio/mpeg" />
 Your browser does not support the audio element.
 </audio>
 <div>
@@ -97,48 +107,37 @@ Your browser does not support the audio element.
 <div class="donation-content">
 <h3>Support My Work 💖</h3>
 
-<!-- Cash App -->
-<section class="payment-method" style="margin-bottom: 20px;">
+<!-- Generic template for each payment platform -->
+<section class="payment-method" data-platform="cashApp">
 <strong>💵 Cash App:</strong><br>
 <label><input type="radio" name="cashAppOption" value="link" checked> Link</label>
 <label><input type="radio" name="cashAppOption" value="qr"> QR Code</label>
-<div id="cashAppLink" style="margin-top: 10px;">
-<a href="https://cash.app/$leosound41" target="_blank">Buy via Cash App</a>
-</div>
-<div id="cashAppQR" style="display:none; margin-top:10px;"></div>
+<div id="cashAppLink"><a href="https://cash.app/$leosound41" target="_blank">Buy via Cash App</a></div>
+<div id="cashAppQR" style="display:none;"></div>
 </section>
 
-<!-- PayPal -->
-<section class="payment-method" style="margin-bottom: 20px;">
+<section class="payment-method" data-platform="paypal">
 <strong>💳 PayPal:</strong><br>
 <label><input type="radio" name="paypalOption" value="link" checked> Link</label>
 <label><input type="radio" name="paypalOption" value="qr"> QR Code</label>
-<div id="paypalLink" style="margin-top: 10px;">
-<a href="https://www.paypal.com/donate/?business=A5ZHTX338TPVG&no_recurring=0&currency_code=USD" target="_blank">Buy via PayPal</a>
-</div>
-<div id="paypalQR" style="display:none; margin-top:10px;"></div>
+<div id="paypalLink"><a href="https://www.paypal.com/donate/?business=A5ZHTX338TPVG&no_recurring=0&currency_code=USD" target="_blank">Buy via PayPal</a></div>
+<div id="paypalQR" style="display:none;"></div>
 </section>
 
-<!-- Ko-fi -->
-<section class="payment-method" style="margin-bottom: 20px;">
+<section class="payment-method" data-platform="kofi">
 <strong>☕ Ko-fi:</strong><br>
 <label><input type="radio" name="kofiOption" value="link" checked> Link</label>
 <label><input type="radio" name="kofiOption" value="qr"> QR Code</label>
-<div id="kofiLink" style="margin-top: 10px;">
-<a href="https://coff.ee/abdikadir5j" target="_blank">Buy via Ko-fi</a>
-</div>
-<div id="kofiQR" style="display:none; margin-top:10px;"></div>
+<div id="kofiLink"><a href="https://coff.ee/abdikadir5j" target="_blank">Buy via Ko-fi</a></div>
+<div id="kofiQR" style="display:none;"></div>
 </section>
 
-<!-- Stripe -->
-<section class="payment-method" style="margin-bottom: 20px;">
+<section class="payment-method" data-platform="stripe">
 <strong>💠 Stripe:</strong><br>
 <label><input type="radio" name="stripeOption" value="link" checked> Link</label>
 <label><input type="radio" name="stripeOption" value="qr"> QR Code</label>
-<div id="stripeLink" style="margin-top: 10px;">
-<a href="https://buy.stripe.com/28E00kgp2f9i40e2Oh2VG00" target="_blank">Buy via Stripe</a>
-</div>
-<div id="stripeQR" style="display:none; margin-top:10px;"></div>
+<div id="stripeLink"><a href="https://buy.stripe.com/28E00kgp2f9i40e2Oh2VG00" target="_blank">Buy via Stripe</a></div>
+<div id="stripeQR" style="display:none;"></div>
 </section>
 
 <button id="closeDonationModal">Close</button>
@@ -147,39 +146,10 @@ Your browser does not support the audio element.
 
 <script src="js/main.js"></script>
 <script>
-// Dark/light mode toggle
+// Optional fallback if main.js fails
+if (!window.loadedMainJS) {
 document.getElementById("darkModeBtn").addEventListener("click", () => {
 document.body.classList.toggle("light-mode");
-});
-
-// Donation modal logic
-const modal = document.getElementById("donationModal");
-document.getElementById("donationButton").addEventListener("click", () => {
-modal.classList.remove("hidden");
-});
-document.getElementById("closeDonationModal").addEventListener("click", () => {
-modal.classList.add("hidden");
-});
-window.addEventListener("click", (e) => {
-if (e.target === modal) modal.classList.add("hidden");
-});
-
-// Stripe toggle between Link and QR
-document.querySelectorAll('input[name="stripeOption"]').forEach(option => {
-option.addEventListener('change', () => {
-const selected = document.querySelector('input[name="stripeOption"]:checked').value;
-document.getElementById("stripeLink").style.display = selected === "link" ? "block" : "none";
-document.getElementById("stripeQR").style.display = selected === "qr" ? "block" : "none";
-});
-});
-
-// Optional: register service worker
-if ("serviceWorker" in navigator) {
-window.addEventListener("load", () => {
-navigator.serviceWorker
-.register("/service-worker.js")
-.then(reg => console.log("✅ Service Worker registered!", reg))
-.catch(err => console.warn("❌ Service Worker failed:", err));
 });
 }
 </script>
