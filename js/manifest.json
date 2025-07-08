@@ -2,24 +2,64 @@
 "name": "Abdikadir Ibrahim's Launch Site",
 "short_name": "LaunchSite",
 "description": "🚀 Official site by Abdikadir Ibrahim. Countdown, fun facts, contact, and more!",
-"start_url": "./index.html",
+"lang": "en-US",
+"dir": "ltr",
+"start_url": "/index.html",
+"scope": "/",
 "display": "standalone",
+"orientation": "portrait",
 "background_color": "#ffffff",
 "theme_color": "#121212",
-"orientation": "portrait",
-"scope": "./",
 "icons": [
 {
-"src": "https://i.imgur.com/xqeL5Mr.png",
+"src": "/icons/icon-192.png",
 "sizes": "192x192",
 "type": "image/png",
-"purpose": "any"
+"purpose": "any maskable"
 },
 {
-"src": "https://i.imgur.com/xqeL5Mr.png",
+"src": "/icons/icon-512.png",
 "sizes": "512x512",
 "type": "image/png",
-"purpose": "any"
+"purpose": "any maskable"
+},
+{
+"src": "/icons/icon-1024.png",
+"sizes": "1024x1024",
+"type": "image/png",
+"purpose": "any maskable"
 }
-]
+],
+"screenshots": [
+{
+"src": "/icons/icon-1024.png",
+"sizes": "1024x1024",
+"type": "image/png",
+"label": "Launch screen"
+}
+],
+"shortcuts": [
+{
+"name": "Countdown Timer",
+"short_name": "Countdown",
+"description": "View the countdown timer",
+"url": "/index.html#countdown",
+"icons": [{ "src": "/icons/icon-192.png", "sizes": "96x96", "type": "image/png" }]
+},
+{
+"name": "Fun Facts",
+"short_name": "Facts",
+"description": "Discover fun facts",
+"url": "/index.html#fun-facts",
+"icons": [{ "src": "/icons/icon-192.png", "sizes": "96x96", "type": "image/png" }]
+},
+{
+"name": "Contact",
+"short_name": "Contact",
+"description": "Send a message",
+"url": "/index.html#contact",
+"icons": [{ "src": "/icons/icon-192.png", "sizes": "96x96", "type": "image/png" }]
+}
+],
+"categories": ["productivity", "tools", "portfolio"]
 }
