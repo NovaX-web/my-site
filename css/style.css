@@ -1,353 +1,78 @@
-:root {
---bg-dark: #121212;
---text-dark: #fff;
---accent-dark: #008cba;
---box-dark: #1e1e1e;
-
---bg-light: #f5f5f5;
---text-light: #111;
---accent-light: #006494;
---box-light: #fff;
+/* Mobile-first responsive styles */
+* {
+box-sizing: border-box;
 }
-
-/* Base */
 body {
-background: var(--bg-dark);
-color: var(--text-dark);
+font-family: 'Segoe UI', sans-serif;
 margin: 0;
-padding: 80px 20px 80px;
-font-family: Arial, sans-serif;
-text-align: center;
+padding: 0;
+background: #f5f7fa;
+color: #333;
 transition: background 0.3s, color 0.3s;
 }
 
-body.light-mode {
-background: var(--bg-light);
-color: var(--text-light);
-}
-
-/* Header */
-#floatingHeader {
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-height: 60px;
-background: var(--box-dark);
+header {
+background-color: #001f3f;
+color: white;
+padding: 1rem 2rem;
 display: flex;
+flex-wrap: wrap;
 justify-content: space-between;
 align-items: center;
-padding: 0 20px;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
-z-index: 1000;
-transition: background 0.3s;
 }
 
-body.light-mode #floatingHeader {
-background: var(--box-light);
-}
-
-#typewriter {
-overflow: hidden;
-white-space: nowrap;
-font-weight: bold;
-font-size: 1.5rem;
-max-width: 100%;
-animation: typing 3.5s steps(30, end);
-}
-
-@keyframes typing {
-from {
-width: 0;
-}
-to {
-width: 100%;
-}
-}
-
-/* Toggle Button */
-#darkModeBtn {
-background: var(--accent-dark);
-color: #fff;
-border: none;
-padding: 8px 15px;
-cursor: pointer;
-border-radius: 5px;
-font-size: 1.25rem;
-user-select: none;
-transition: background 0.3s, transform 0.2s;
-}
-
-#darkModeBtn:hover {
-background: #005f73;
-transform: scale(1.05);
-}
-
-body.light-mode #darkModeBtn {
-background: var(--accent-light);
-}
-
-body.light-mode #darkModeBtn:hover {
-background: #004466;
-}
-
-/* Navigation */
-#mainNav {
-display: none;
-margin-top: 80px;
-}
-
-#mainNav button {
-margin: 0 10px;
-padding: 10px 18px;
-background: var(--accent-dark);
-color: #fff;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-font-weight: 600;
-transition: background 0.3s;
-}
-
-#mainNav button:hover {
-background: #005f73;
-}
-
-body.light-mode #mainNav button {
-background: var(--accent-light);
-}
-
-body.light-mode #mainNav button:hover {
-background: #004466;
-}
-
-/* Countdown */
-#countdown {
-font-size: 2.2rem;
-margin: 100px 0 40px;
-min-height: 2.5rem;
-font-weight: 600;
-letter-spacing: 0.05em;
-user-select: none;
-}
-
-/* Fun Facts */
-.fun-facts {
-margin: 40px auto;
-max-width: 600px;
-}
-
-.fun-facts h2 {
-font-weight: 700;
-margin-bottom: 15px;
-font-size: 1.8rem;
-}
-
-#funFactDisplay {
-font-style: italic;
-font-size: 1.25rem;
-min-height: 60px;
-margin-bottom: 15px;
-transition: opacity 0.5s ease;
-}
-
-.fun-facts input {
-width: 80%;
-max-width: 400px;
-padding: 12px 15px;
-margin: 10px 0;
-border: 1px solid #ccc;
-border-radius: 6px;
-font-size: 1rem;
-transition: border-color 0.3s;
-}
-
-.fun-facts input:focus {
-outline: none;
-border-color: var(--accent-dark);
-}
-
-.fun-facts button {
-background: var(--accent-dark);
-margin: 5px;
-padding: 10px 18px;
-border: none;
-color: #fff;
-border-radius: 5px;
-cursor: pointer;
-font-weight: 600;
-transition: background 0.3s;
-user-select: none;
-}
-
-.fun-facts button:hover {
-background: #005f73;
-}
-
-body.light-mode .fun-facts button {
-background: var(--accent-light);
-}
-
-body.light-mode .fun-facts button:hover {
-background: #004466;
-}
-
-/* Audio Player */
-.audio-controls {
-margin: 40px 0;
-}
-
-.audio-controls button {
-background: var(--accent-dark);
-color: #fff;
-padding: 12px 18px;
-margin: 0 8px;
-border-radius: 8px;
-cursor: pointer;
-border: none;
-font-weight: 600;
-transition: background 0.3s;
-user-select: none;
-}
-
-.audio-controls button:hover {
-background: #005f73;
-}
-
-body.light-mode .audio-controls button {
-background: var(--accent-light);
-}
-
-body.light-mode .audio-controls button:hover {
-background: #004466;
-}
-
-.audio-controls audio {
-outline: none;
-border-radius: 8px;
-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
-width: 100%;
-max-width: 450px;
-margin-bottom: 15px;
-}
-
-/* Sticky Footer */
-#stickyFooter {
-position: fixed;
-bottom: 0;
-left: 0;
-right: 0;
-background: var(--box-dark);
-color: var(--text-dark);
-padding: 10px 0;
-font-size: 0.9rem;
-user-select: none;
-box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
-z-index: 999;
-}
-
-body.light-mode #stickyFooter {
-background: var(--box-light);
-color: var(--text-light);
-}
-
-/* Donation Button */
-#donationButton {
-position: fixed;
-bottom: 90px;
-right: 20px;
-background: #00c853;
+nav a {
 color: white;
-padding: 14px 18px;
-border: none;
-border-radius: 50%;
-cursor: pointer;
-font-size: 1.5rem;
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-z-index: 1001;
-transition: background 0.3s ease;
-}
-
-#donationButton:hover {
-background: #009624;
-}
-
-/* Contact Form */
-#contact {
-margin: 40px auto;
-max-width: 600px;
-text-align: center;
-}
-
-#contactForm input,
-#contactForm textarea {
-width: 80%;
-max-width: 450px;
-padding: 12px 15px;
-margin: 10px 0;
-border: 1px solid #ccc;
-border-radius: 8px;
-font-size: 1rem;
-transition: border-color 0.3s;
-}
-
-#contactForm input:focus,
-#contactForm textarea:focus {
-outline: none;
-border-color: var(--accent-dark);
-}
-
-#contactForm button {
-background: var(--accent-dark);
-color: #fff;
-padding: 14px 25px;
-border: none;
-border-radius: 8px;
-cursor: pointer;
-font-weight: 700;
-font-size: 1.1rem;
-transition: background 0.3s;
-}
-
-#contactForm button:hover {
-background: #005f73;
-}
-
-body.light-mode #contactForm button {
-background: var(--accent-light);
-}
-
-body.light-mode #contactForm button:hover {
-background: #004466;
-}
-
-#formStatus {
-margin-top: 10px;
+margin: 10px;
+text-decoration: none;
 font-weight: 600;
+transition: color 0.2s ease-in-out;
+}
+nav a:hover {
+color: #ffdc00;
 }
 
-/* Responsive tweaks */
-@media (max-width: 500px) {
-#darkModeBtn {
-font-size: 1rem;
-padding: 6px 12px;
+.hero {
+background: url("assets/hero.jpg") center/cover no-repeat;
+color: white;
+text-align: center;
+padding: 5rem 2rem;
+animation: fadeIn 2s ease-in-out;
 }
 
-#countdown {
-font-size: 1.8rem;
+@keyframes fadeIn {
+from {opacity: 0;}
+to {opacity: 1;}
 }
 
-#funFactDisplay {
-font-size: 1.1rem;
+section {
+padding: 3rem 2rem;
+max-width: 1000px;
+margin: auto;
 }
 
-.fun-facts input {
-width: 95%;
+footer {
+background: #001f3f;
+color: white;
+padding: 1rem;
+text-align: center;
+margin-top: 2rem;
 }
 
-#contactForm input,
-#contactForm textarea {
-width: 95%;
+/* Responsive Navigation */
+@media screen and (max-width: 768px) {
+header {
+flex-direction: column;
+align-items: flex-start;
+}
+
+nav {
+display: flex;
+flex-wrap: wrap;
+}
+
+.hero {
+padding: 3rem 1rem;
 }
 }
 

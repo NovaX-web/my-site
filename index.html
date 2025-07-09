@@ -3,50 +3,70 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>My Site Launch</title>
+<title>Server Down - NovaX</title>
+<style>
+/* Fullscreen flashing background */
+body, html {
+margin: 0; padding: 0; height: 100%; overflow: hidden;
+font-family: Arial, sans-serif;
+}
+#flashingBackground {
+position: fixed;
+top: 0; left: 0; width: 100vw; height: 100vh;
+animation: flashColors 1s infinite;
+z-index: 9999;
+}
+@keyframes flashColors {
+0%, 50%, 100% { background: red; }
+25%, 75% { background: blue; }
+}
+#message {
+position: fixed;
+top: 50%; left: 50%;
+transform: translate(-50%, -50%);
+color: white;
+font-size: 2.5rem;
+font-weight: bold;
+text-align: center;
+z-index: 10000;
+text-shadow: 0 0 10px black;
+padding: 20px;
+}
+</style>
+</head>
+<body>
 
-<!-- ✅ Maintenance Redirect with Admin Bypass -->
+<div id="flashingBackground"></div>
+<div id="message">This server is currently down until further notice.<br>Please check back after July 12, 2025.</div>
+
+<audio id="alertSound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto" loop></audio>
+
 <script>
-const MAINTENANCE_MODE = true; // Toggle this to false to turn off maintenance mode
-const params = new URLSearchParams(window.location.search);
-const isAdminBypass = params.get("admin") === "true";
+// Play loud looping alert sound
+const alertSound = document.getElementById("alertSound");
+alertSound.volume = 1.0;
+alertSound.play().catch(() => {
+console.warn("Autoplay prevented. Click or interact with page to hear sound.");
+// Optional: you could add a button to start sound on user interaction
+});
 
-if (MAINTENANCE_MODE && !isAdminBypass) {
-window.location.href = "maintenance.html";
+// Loop speech synthesis message
+if ('speechSynthesis' in window) {
+const speakMessage = () => {
+const msg = new SpeechSynthesisUtterance("This server is currently down until further notice.");
+msg.rate = 1;
+msg.pitch = 1;
+msg.volume = 1;
+msg.onend = () => {
+setTimeout(() => {
+speakMessage();
+}, 1000);
+};
+window.speechSynthesis.speak(msg);
+};
+speakMessage();
 }
 </script>
 
-<link rel="manifest" href="/manifest.json" />
-<link rel="icon" href="/icons/icon-192.png" sizes="192x192" />
-<meta name="theme-color" content="#121212" />
-
-<!-- Your existing styles and scripts remain unchanged -->
-<style>
-/* Keep your existing CSS here — no changes needed */
-</style>
-</head>
-
-<body>
-<!-- Your full site will load ONLY if MAINTENANCE_MODE is false OR user is bypassed -->
-
-<img id="bgImage" src="" alt="Background" />
-<div id="overlay"></div>
-
-<header>
-<h1 id="typewriter">🚀 Website Launching Soon</h1>
-<div>
-<button id="navToggleBtn" aria-label="Toggle navigation">☰</button>
-<button id="darkModeBtn" aria-label="Toggle dark mode">🌙</button>
-</div>
-</header>
-
-<!-- Everything else stays the same -->
-<!-- ...nav, main, scripts, fun facts, auth modal etc... -->
-
-<!-- Your original scripts below -->
-<script>
-// Dark mode, GIF loading, typewriter, login/signup etc.
-// Already included from your existing setup
-</script>
 </body>
 </html>
